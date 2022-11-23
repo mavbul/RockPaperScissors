@@ -32,12 +32,57 @@ function playRound(playerChoise, computerChoise) {
 
 
 
-let computerChoise = getComputerChoise(); 
-let playerChoise = 'rock'; 
 
-for (let i = 0; i < 5; i++) {
+
+
+/*for (let i = 0; i < 10; i++) {
     computerChoise = getComputerChoise(); 
     console.log(computerChoise);
     console.log(playRound(playerChoise, computerChoise));
+}*/
+
+const buttonsList = document.getElementById('buttonsList');
+//console.log(buttonsList);
+
+buttonsList.addEventListener('click', buttonClickHandler);
+
+function buttonClickHandler(event) {
+    //console.log(event.target.dataset.value);
+    const playerChoise = event.target.dataset.value; 
+    const computerChoise = getComputerChoise(); 
+    const result = playRound(playerChoise, computerChoise);
+
+    function resultOut(innerText) {
+        const divResult = document.createElement('div'); 
+        divResult.className = 'result';
+        divResult.innerHTML = innerText;
+        document.body.append(divResult);
+    }
+
+    if (result === 'computer win') computerWinArray.push(1);
+    if (result === 'player win') playerWinArray.push(1);
+
+    console.log(result);
+
+    if (computerWinArray.length == roundsToWin) {
+        computerWinArray = [];
+        playerWinArray = [];
+
+        resultOut('computer win');
+    }
+
+    if (playerWinArray.length == roundsToWin) {
+        computerWinArray = [];
+        playerWinArray = [];
+
+        resultOut('player win');
+    }
+
 }
+
+let roundsToWin = 5; 
+let playerWinArray = [];
+let computerWinArray = []; 
+
+
 
